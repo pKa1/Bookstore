@@ -58,7 +58,5 @@ npm run start
 - Ошибки сборки `better-sqlite3`: используйте Node 20 LTS; на macOS можно `brew install node@20`
 - Очистка сессий: удалите файл `data/sessions.sqlite`
 
-Лицензия
-MIT (или укажите свою)
 
 
