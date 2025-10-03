@@ -1,0 +1,84 @@
+{% extends "layout.html" %}
+{% block title %}Книги{% endblock %}
+{% block content %}
+<!-- Таблица книг: поиск, пагинация, кнопки CRUD (для admin/worker) и добавление в корзину (для client) -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Книги</h3>
+  {% if currentUser.role in ['admin','worker'] %}
+  <button class="btn btn-primary" id="btnAddBook"><i class="bi bi-plus"></i> Добавить</button>
+  {% endif %}
+  </div>
+<div class="row mb-3">
+  <div class="col-md-6">
+    <input id="searchBooks" class="form-control" placeholder="Поиск по названию или автору">
+  </div>
+  <div class="col-md-6 text-end">
+    {% if currentUser.role in ['admin','worker'] %}
+      <a class="btn btn-outline-secondary" href="/export/books.xlsx"><i class="bi bi-download"></i> Excel</a>
+    {% endif %}
+  </div>
+ </div>
+<div class="table-responsive">
+  <table class="table table-hover" id="tblBooks">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Название</th>
+        <th>Автор</th>
+        <th>Цена</th>
+        <th>Остаток</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <nav>
+    <ul class="pagination" id="booksPager"></ul>
+  </nav>
+ </div>
+
+{% if currentUser.role in ['admin','worker'] %}
+<div class="modal fade" id="modalBook" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Книга</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formBook">
+          <input type="hidden" name="id">
+          <div class="mb-3">
+            <label class="form-label">Название</label>
+            <input class="form-control" name="title" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Автор</label>
+            <input class="form-control" name="author">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Цена</label>
+            <input type="number" step="0.01" class="form-control" name="price" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Количество</label>
+            <input type="number" class="form-control" name="quantity" required>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+        <button class="btn btn-primary" id="btnSaveBook">Сохранить</button>
+      </div>
+    </div>
+  </div>
+ </div>
+{% endif %}
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    window.BookPage && window.BookPage.init();
+  });
+ </script>
+{% endblock %}
+

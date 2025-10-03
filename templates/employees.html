@@ -1,0 +1,65 @@
+{% extends "layout.html" %}
+{% block title %}Работники{% endblock %}
+{% block content %}
+<!-- Таблица работников: доступно для admin/worker, форма в модалке -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Работники</h3>
+  <button class="btn btn-primary" id="btnAddEmployee"><i class="bi bi-plus"></i> Добавить</button>
+ </div>
+<div class="table-responsive">
+  <table class="table table-hover" id="tblEmployees">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>ФИО</th>
+        <th>Должность</th>
+        <th>Контакты</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <nav>
+    <ul class="pagination" id="employeesPager"></ul>
+  </nav>
+ </div>
+
+<div class="modal fade" id="modalEmployee" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Работник</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formEmployee">
+          <input type="hidden" name="id">
+          <div class="mb-3">
+            <label class="form-label">ФИО</label>
+            <input class="form-control" name="full_name" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Должность</label>
+            <input class="form-control" name="position">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Контакты</label>
+            <input class="form-control" name="contact">
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+        <button class="btn btn-primary" id="btnSaveEmployee">Сохранить</button>
+      </div>
+    </div>
+  </div>
+ </div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    window.EmployeePage && window.EmployeePage.init();
+  });
+ </script>
+{% endblock %}
+

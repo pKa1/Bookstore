@@ -1,0 +1,118 @@
+{% extends "layout.html" %}
+{% block title %}Заказы{% endblock %}
+{% block content %}
+<!-- Заказы: список, создание нового (admin/worker), просмотр позиций заказа -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Заказы</h3>
+  {% if currentUser.role in ['admin','worker'] %}
+  <button class="btn btn-primary" id="btnAddOrder"><i class="bi bi-plus"></i> Создать заказ</button>
+  <a class="btn btn-outline-secondary" href="/export/orders.xlsx"><i class="bi bi-download"></i> Excel</a>
+  {% endif %}
+ </div>
+<div class="table-responsive">
+  <table class="table table-hover" id="tblOrders">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Клиент</th>
+        <th>Дата</th>
+        <th>Статус</th>
+        <th>Сумма</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <nav>
+    <ul class="pagination" id="ordersPager"></ul>
+  </nav>
+ </div>
+
+<!-- Модалка создания/редактирования заказа -->
+<div class="modal fade" id="modalOrder" tabindex="-1">
+  <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Новый заказ</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formOrder">
+          <div class="row g-3">
+            <div class="col-md-6">
+              <label class="form-label">Клиент</label>
+              <select class="form-select select2" name="client_id"></select>
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Статус</label>
+              <select class="form-select" name="status">
+                <option value="new">Новый</option>
+                <option value="paid">Оплачен</option>
+                <option value="shipped">Отгружен</option>
+                <option value="cancelled">Отменён</option>
+              </select>
+            </div>
+            <div class="col-12">
+              <table class="table" id="tblOrderItems">
+                <thead>
+                  <tr>
+                    <th>Книга</th>
+                    <th>Цена</th>
+                    <th>Кол-во</th>
+                    <th>Сумма</th>
+                    <th></th>
+                  </tr>
+                </thead>
+                <tbody></tbody>
+              </table>
+              <button type="button" class="btn btn-outline-primary" id="btnAddItem"><i class="bi bi-plus"></i> Добавить позицию</button>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="me-auto fw-bold">Итого: <span id="orderTotal">0</span> ₽</div>
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+        <button class="btn btn-primary" id="btnSaveOrder">Сохранить</button>
+      </div>
+    </div>
+  </div>
+ </div>
+
+<!-- Модалка просмотра позиций выбранного заказа -->
+<div class="modal fade" id="modalOrderItems" tabindex="-1">
+  <div class="modal-dialog modal-sm modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Позиции заказа #<span id="orderItemsId">-</span></h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="table-responsive">
+          <table class="table" id="tblOrderViewItems">
+            <thead>
+              <tr>
+                <th>Книга</th>
+                <th>Кол-во</th>
+                <th>Цена</th>
+                <th>Сумма</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+      </div>
+    </div>
+  </div>
+ </div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    window.OrderPage && window.OrderPage.init();
+  });
+ </script>
+{% endblock %}
+

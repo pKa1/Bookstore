@@ -1,0 +1,30 @@
+{
+  "name": "bookstore-app",
+  "version": "1.0.0",
+  "description": "Full-stack Bookstore web app (Express, Nunjucks, SQLite, Bootstrap)",
+  "main": "app.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "test": "mocha --reporter spec"
+  },
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.20.2",
+    "connect-sqlite3": "^0.9.15",
+    "exceljs": "^4.4.0",
+    "express": "^4.19.2",
+    "express-session": "^1.17.3",
+    "morgan": "^1.10.0",
+    "nunjucks": "^3.2.4",
+    "better-sqlite3": "^9.4.3",
+    "uuid": "^9.0.1"
+  },
+  "devDependencies": {
+    "mocha": "^10.7.3",
+    "nodemon": "^3.1.7",
+    "supertest": "^6.3.4"
+  }
+}
+

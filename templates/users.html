@@ -1,0 +1,69 @@
+{% extends "layout.html" %}
+{% block title %}Пользователи{% endblock %}
+{% block content %}
+<!-- Пользователи: только для admin, смена роли и пароля -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+  <h3>Пользователи</h3>
+  <button class="btn btn-primary" id="btnAddUser"><i class="bi bi-plus"></i> Добавить</button>
+ </div>
+<div class="table-responsive">
+  <table class="table table-hover" id="tblUsers">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Логин</th>
+        <th>Роль</th>
+        <th>Создан</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+  <nav>
+    <ul class="pagination" id="usersPager"></ul>
+  </nav>
+ </div>
+
+<div class="modal fade" id="modalUser" tabindex="-1">
+  <div class="modal-dialog modal-fullscreen-sm-down">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Пользователь</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="formUser">
+          <input type="hidden" name="id">
+          <div class="mb-3">
+            <label class="form-label">Логин</label>
+            <input class="form-control" name="login" required>
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Пароль</label>
+            <input class="form-control" name="password" type="password">
+          </div>
+          <div class="mb-3">
+            <label class="form-label">Роль</label>
+            <select class="form-select" name="role">
+              <option value="admin">admin</option>
+              <option value="worker">worker</option>
+              <option value="client">client</option>
+            </select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn btn-secondary" data-bs-dismiss="modal">Отмена</button>
+        <button class="btn btn-primary" id="btnSaveUser">Сохранить</button>
+      </div>
+    </div>
+  </div>
+ </div>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    window.UserPage && window.UserPage.init();
+  });
+ </script>
+{% endblock %}
+

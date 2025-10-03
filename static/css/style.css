@@ -1,0 +1,28 @@
+/* Базовые стили приложения */
+body { background-color: #f8f9fb; }
+.navbar-brand { font-weight: 600; }
+.card .fs-1 { line-height: 1; }
+.select2-container--bootstrap4 .select2-selection { min-height: 38px; }
+.select2-container { z-index: 2000 !important; }
+.select2-container .select2-dropdown { z-index: 2001 !important; }
+.table thead th { white-space: nowrap; }
+.pagination { margin-bottom: 0; }
+
+/* Mobile tweaks */
+@media (max-width: 575.98px) {
+  .navbar .navbar-brand { font-size: 1rem; }
+  .navbar .btn, .navbar .nav-link { font-size: 0.9rem; }
+  main.container { padding-left: 0.75rem; padding-right: 0.75rem; }
+  .table-responsive { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .table td, .table th { white-space: nowrap; }
+  .modal-dialog { margin: 0; }
+  .modal-content { border-radius: 0; min-height: 100vh; }
+  .select2-container { width: 100% !important; }
+  .form-control, .form-select, .select2-selection { font-size: 16px; }
+}
+
+/* Make modal full-screen on small devices */
+@media (max-width: 767.98px) {
+  .modal-dialog { width: 100%; max-width: none; }
+}
+
